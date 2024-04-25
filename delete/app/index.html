@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'register' %}">Register</a>
+</div>
+<div>
+    <ul>
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="{% url 'leads' %}">Team leads</a></li>
+        <li><a href="/">Employees</a></li>
+        <li><a href="/">Add Location</a></li>
+    </ul>
+</div>
+{% endblock content %}
