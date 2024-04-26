@@ -3,20 +3,49 @@
 {% block title %}Administrator{% endblock title %}
 
 {% block content %}
-<p>Administrator Page</p>
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{form}}
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-    </ul>
-    {% endif %}
-    <input type="submit" value="create">
-</form>
+<div class="">
+    <div class="grid grid-cols-12 gap-5">
+        <div class="col-span-2 hidden md:block">Nash</div>
+        <div class="col-span-10 lg:col-span-7 border-l pl-5">
+            <div class="flex justify-between align-center mb-5">
+                <span>Select agent to change</span>
+                <a href="{% url 'add_agent' %}" class="bg-blue-600 text-white px-3 py-1 rounded-md flex items-center">
+                    <span class="px-2 font-bold">Add Agent</span>
+                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15"
+                        viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                            d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+            <hr>
+            <div class="mt-5">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+                <ul>
+                    <li class="p-2">
+                        {% if agent_list_count == 1 %}
+                        {{agent_list_count}} Agent
+                        {% else %}
+                        {{agent_list_count}} Agents
+                        {% endif %}</li>
+                    {% for agent in agent_list %}
+                    <li class="p-2"><a href="">{{agent.user}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-span-3 border-l pl-5 hidden lg:block">Nash</div>
+    </div>
+</div>
 
-<a href="{% url 'logout' %}">logout</a>
+
+
 {% endblock content %}

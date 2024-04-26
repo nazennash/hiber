@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Administrator{% endblock title %}
+
+{% block content %}
+
+<div class="">
+    <div class="grid grid-cols-12 gap-5">
+        <div class="col-span-2 hidden md:block">Nash</div>
+        <div class="col-span-10 lg:col-span-7 border-l pl-5">
+            <div class="flex justify-between align-center mb-5">
+                <span>Add agent</span>
+
+            </div>
+            <hr>
+            <div class="mt-5">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="mb-5">
+                        {{form}}
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                                {% endfor %}
+                        </ul>
+                        {% endif %}
+                        </span>
+                        <div class="mt-5">
+                            <hr>
+                            <input type="submit" value="create">
+                        </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-span-3 border-l pl-5 hidden lg:block">Nash</div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+
+<!-- <form action="" method="post">
+    {% csrf_token %}
+    {{form}}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <input type="submit" value="create">
+</form> -->

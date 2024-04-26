@@ -64,6 +64,17 @@ def logout_view(request):
 
 @administrator_required
 def administrator_index(request):
+
+    agent_list = Agent.objects.all().order_by('-id')
+    agent_list_count = agent_list.count()
+
+    
+    context = {'agent_list':agent_list, 'agent_list_count':agent_list_count}
+    return render(request, "app/admin_index.html", context)
+
+@administrator_required
+def add_agent(request):
+
     form = CreateAgent()
     if request.method == "POST":
         form = CreateAgent(request.POST)
@@ -77,11 +88,13 @@ def administrator_index(request):
                     user = agent_name
                 )
                 messages.success(request, "User created Successfully")
+                return redirect('administrator')
+                
         else:
             messages.warning(request, "Invalid Request")
 
     context = {'form':form}
-    return render(request, "app/admin_index.html", context)
+    return render(request, "app/add_agent.html", context)
 
 @agent_required
 def agent_index(request):
@@ -94,13 +107,3 @@ def agent_index(request):
 @lead_required
 def lead_index(request):
     return render(request, "app/lead_index.html")
-
-def user_create_view(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('success_url') 
-    else:
-        form = UserForm()
-    return render(request, 'app/create_user.html', {'form': form})

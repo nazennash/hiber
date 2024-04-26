@@ -15,7 +15,6 @@ class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'border rounded px-2 w-[400px] h-[38px] mx-auto'}))
     password2 = forms.CharField(label="Confirm Password",widget=forms.PasswordInput(attrs={'class':'border rounded px-2 w-[400px] h-[38px] mx-auto'}))
     email = forms.CharField(label="Email",widget=forms.EmailInput(attrs={'class':'border rounded px-2 w-[400px] h-[38px] mx-auto'}))
-
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2', 'is_admin', 'is_agent', 'is_lead')
