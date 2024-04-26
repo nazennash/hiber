@@ -3,10 +3,26 @@
 {% block title %}Login{% endblock title %}
 
 {% block content %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Login">
-    Don't have an account? <a href="{% url 'register' %}">Register</a>
-</form>
+<div class="flex items-center">
+    <form action="" method="post" class="mx-auto">
+        {% csrf_token %}
+        <h1 class="bg-[#417690] text-center p-4 text-xl font-bold text-white">Pinacore Administrtion</h1>
+        <div class=" p-10 shadow">
+
+            <div class="flex flex-col mb-3">
+                <label for="id_username" class="class':'px-3 w-[400px] h-[30px] mx-auto">Username</label>
+                {{form.username}}
+            </div>
+            <div class="flex flex-col">
+                <label for="id_password" class="class':'px-3 w-[400px] h-[30px] mx-auto">Password</label>
+                {{form.password}}
+            </div>
+            <div class="flex justify-center  mt-8">
+                <input type="submit" value="Login" class="bg-[#417690] text-white px-3 py-1 rounded-md ">
+            </div>
+            <p class="text-center mt-5">Don't have an account? <a class="text-red-500 font-bold"
+                    href="{% url 'register' %}">Register</a></p>
+        </div>
+    </form>
+</div>
 {% endblock content %}

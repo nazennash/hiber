@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .forms import LoginForm, RegistrationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .forms import UserForm, CreateLead, CreateAgent
+from django.contrib.auth.decorators import login_required
+from .decorators import administrator_required, agent_required, lead_required
+from .models import User, Agent, Lead
 
 def index(request):
     return render(request, "app/index.html")
@@ -54,15 +58,49 @@ def registration_view(request):
 
     return render(request, "app/register.html", context)
 
-def logout(request):
-    user = request.user
-    logout(request, user)
+def logout_view(request):
+    logout(request)
+    return render(request, "app/logout.html")
 
+@administrator_required
 def administrator_index(request):
-    return render(request, "app/admin_index.html")
+    form = CreateAgent()
+    if request.method == "POST":
+        form = CreateAgent(request.POST)
+        if form.is_valid():
+            agent_name = form.cleaned_data['agent']
+            try: 
+                Agent.objects.get(user=agent_name)
+                messages.warning(request, "user exists")
+            except Agent.DoesNotExist:
+                agent = Agent.objects.create(
+                    user = agent_name
+                )
+                messages.success(request, "User created Successfully")
+        else:
+            messages.warning(request, "Invalid Request")
 
+    context = {'form':form}
+    return render(request, "app/admin_index.html", context)
+
+@agent_required
 def agent_index(request):
-    return render(request, "app/agent_index.html")
+    form = CreateLead()
+    if form.is_valid():
+        print(form.cleaned_data)
+    context = {'form':form}
+    return render(request, "app/agent_index.html", context)
 
+@lead_required
 def lead_index(request):
     return render(request, "app/lead_index.html")
+
+def user_create_view(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('success_url') 
+    else:
+        form = UserForm()
+    return render(request, 'app/create_user.html', {'form': form})

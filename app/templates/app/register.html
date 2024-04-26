@@ -3,10 +3,58 @@
 {% block title %}Register{% endblock title %}
 
 {% block content %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Register">
-    Already Have an account? <a href="{% url 'login' %}">Login</a>
-</form>
+<div class="flex items-center">
+    <form action="" method="post" class="mx-auto">
+        {% csrf_token %}
+        <h1 class="bg-[#417690] text-center p-4 text-xl font-bold text-white">Pinacore Administration</h1>
+        <div class="p-10 shadow">
+
+            <div class="flex flex-col mb-3">
+                <label for="id_username" class="class':'px-3 w-[400px] h-[30px] mx-auto">Username</label>
+                {{form.username}}
+            </div>
+            <div class="flex flex-col mb-3">
+                <label for="id_email" class="class':'px-3 w-[400px] h-[30px] mx-auto">Email</label>
+                {{form.email}}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="id_password1" class="class':'px-3 w-[400px] h-[30px] mx-auto">Password</label>
+                {{form.password1}}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="id_password2" class="class':'px-3 w-[400px] h-[30px] mx-auto">Password</label>
+                {{form.password2}}
+            </div>
+
+            <div class="flex justify-center items-center mt-5">
+                <div class="flex flex-col mx-4">
+                    <label for="id_is_admin" class="mx-auto">Admin</label>
+                    <input type="radio" id="id_is_admin" name="role" value="admin">
+                </div>
+
+                <div class="flex flex-col mx-4">
+                    <label for="id_is_agent" class="mx-auto">Agent</label>
+                    <input type="radio" id="id_is_agent" name="role" value="agent">
+                </div>
+
+                <div class="flex flex-col mx-4">
+                    <label for="id_is_lead" class="mx-auto">Lead</label>
+                    <input type="radio" id="id_is_lead" name="role" value="lead">
+                </div>
+            </div>
+
+
+
+
+
+            <div class="flex justify-center mt-8">
+                <input type="submit" value="Register" class="bg-[#417690] text-white px-3 py-1 rounded-md">
+            </div>
+            <p class="text-center mt-5">Already have an account? <a class="text-red-500 font-bold"
+                    href="{% url 'login' %}">Login</a></p>
+        </div>
+    </form>
+</div>
 {% endblock content %}
